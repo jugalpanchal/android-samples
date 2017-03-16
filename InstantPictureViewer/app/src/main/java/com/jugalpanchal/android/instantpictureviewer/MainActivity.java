@@ -35,10 +35,10 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar.make(view, "Opening Camera", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
                 File file = getNewMediaFile();
-                if(getNewMediaFile() != null) {
+                if(file != null) {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     pictureUri = Uri.fromFile(file);
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, pictureUri);
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 100) {
             if (resultCode == RESULT_OK) {
-                imageView.setImageURI(this.pictureUri);
+                this.imageView.setImageURI(this.pictureUri);
             }
         }
     }
