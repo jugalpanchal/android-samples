@@ -1,6 +1,7 @@
 package com.jugalpanchal.android.instantpictureviewer;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -84,9 +85,7 @@ public class MainActivity extends AppCompatActivity {
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES), "InstantPictureViewerMedia");
         if (!mediaStorageDir.exists()){
-            if (!mediaStorageDir.mkdirs()){
-                return null;
-            }
+            mediaStorageDir.mkdirs();
         }
 
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
