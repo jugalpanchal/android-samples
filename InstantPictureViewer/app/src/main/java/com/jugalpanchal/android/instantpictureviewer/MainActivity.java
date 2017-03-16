@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -19,7 +20,8 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    Uri pictureUri;
+    private Uri pictureUri;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        this.imageView = (ImageView) findViewById(R.id.imageview);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabCamera);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +69,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 100) {
+            if (resultCode == RESULT_OK) {
+                imageView.setImageURI(this.pictureUri);
+            }
+        }
     }
 
     private static File getNewMediaFile(){
