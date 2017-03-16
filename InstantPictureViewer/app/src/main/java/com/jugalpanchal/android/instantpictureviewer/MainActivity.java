@@ -1,7 +1,10 @@
 package com.jugalpanchal.android.instantpictureviewer;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +19,8 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
+    Uri pictureUri;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +34,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                File file = getNewMediaFile();
+                if(getNewMediaFile() != null) {
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    pictureUri = Uri.fromFile(file);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, pictureUri);
+
+                    startActivityForResult(intent, 100);
+                }
             }
         });
     }
